@@ -9,32 +9,31 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:3000/")
 @RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    // Get user by ID (uses cache)
+    // 🟢 GET USER (Uses cache)
     @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-    // Get all users
+    // 🟡 GET ALL USERS (No caching)
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    // Save user (clears cache)
+    // 🔵 ADD USER (Clears cache)
     @PostMapping
     public User saveUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
-    // Delete user (removes from cache)
+    // 🔴 DELETE USER (Removes from cache)
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
